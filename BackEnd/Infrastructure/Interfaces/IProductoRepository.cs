@@ -16,3 +16,4 @@ namespace Infrastructure.Interfaces
         Task<int> EliminarAsync(int id);
     }
 }
+

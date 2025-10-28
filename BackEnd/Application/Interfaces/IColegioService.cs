@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Interfaces
+namespace Application.Interfaces
 {
-    public interface IColegioRepository
+    public interface IColegioService
     {
         Task<IEnumerable<Colegio>> GetAllAsync();
         Task<Colegio?> GetByIdAsync(int id);
