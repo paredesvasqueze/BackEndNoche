@@ -37,7 +37,7 @@ namespace Infrastructure.Repositories
             await using var conn = GetConnection();
             var item = await conn.QueryFirstOrDefaultAsync<Producto>(
                 "sp_Producto_GetById",
-                new { IdProducto = id },
+                new { Id = id },
                 commandType: CommandType.StoredProcedure);
             return item;
         }
@@ -57,7 +57,7 @@ namespace Infrastructure.Repositories
             await using var conn = GetConnection();
             var rows = await conn.QuerySingleAsync<int>(
                 "sp_Producto_Update",
-                new { producto.Id, producto.Nombre, producto.Descripcion, producto.Precio, producto.Stock },
+                new { producto.Id, producto.Nombre, producto.Descripcion, producto.Precio, producto.Stock , producto.CategoriaId  },
                 commandType: CommandType.StoredProcedure);
             return rows;
         }

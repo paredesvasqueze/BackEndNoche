@@ -41,10 +41,10 @@ namespace API.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(int id, [FromBody] Producto dto)
+        public async Task<IActionResult> Update([FromBody] Producto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (id != dto.Id) return BadRequest("Id No Encontrado");
+            //if (id != dto.Id) return BadRequest("Id No Encontrado");
 
             var rows = await _service.ActualizarAsync(dto);
             if (rows == 0) return NotFound();
