@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "API de Productos",
+        Title = "API",
         Version = "v1"
     });
 });
@@ -21,6 +21,9 @@ builder.Services.AddSwaggerGen(c =>
 // DI - registra implementaciones
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
+builder.Services.AddScoped<IDocenteRepository, DocenteRepository>();
+builder.Services.AddScoped<IDocenteService, DocenteService>();
+
 
 // Logging, CORS, etc.
 builder.Services.AddLogging();
