@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class ColegioController : ControllerBase
     {
         private readonly IColegioService _service;
@@ -37,7 +37,7 @@ namespace API.Controllers
         public async Task<IActionResult> Create([FromBody] Colegio dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            await _service.AddAsync(dto);
+            var newId =  await _service.AddAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = dto.IdColegio }, new { Id = dto.IdColegio });
         }
 
@@ -45,18 +45,16 @@ namespace API.Controllers
         public async Task<IActionResult> Update([FromBody] Colegio dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var existing = await _service.GetByIdAsync(dto.IdColegio);
-            if (existing == null) return NotFound();
-            await _service.UpdateAsync(dto);
+            var existing = await _service.UpdateAsync(dto);
+            if (existing == 0) return NotFound();            
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var existing = await _service.GetByIdAsync(id);
-            if (existing == null) return NotFound();
-            await _service.DeleteAsync(id);
+            var existing = await _service.DeleteAsync(id);
+            if (existing == 0) return NotFound();
             return NoContent();
         }   
 
