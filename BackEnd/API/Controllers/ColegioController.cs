@@ -38,7 +38,7 @@ namespace API.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var newId =  await _service.AddAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = dto.IdColegio }, new { Id = dto.IdColegio });
+            return CreatedAtAction(nameof(GetById), new { id = newId }, new { Id = newId });
         }
 
         [HttpPut("Update")]
