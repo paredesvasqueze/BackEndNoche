@@ -21,6 +21,8 @@ builder.Services.AddSwaggerGen(c =>
 // DI - registra implementaciones
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
+builder.Services.AddScoped<IMatriculaRepository, MatriculaRepository>();
+builder.Services.AddScoped<IMatriculasService, MatriculasService>();
 
 // Logging, CORS, etc.
 builder.Services.AddLogging();
