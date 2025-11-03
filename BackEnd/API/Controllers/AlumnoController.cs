@@ -5,50 +5,52 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
-    public class ProductoController : ControllerBase
+    public class AlumnoController : ControllerBase
     {
-        private readonly IProductoService _service;
-        private readonly ILogger<ProductoController> _logger;
 
-        public ProductoController(IProductoService service, ILogger<ProductoController> logger)
+        private readonly IAlumnoService _service;
+        private readonly ILogger<AlumnoController> logger;
+
+
+        public AlumnoController(IAlumnoService service)
         {
             _service = service;
-            _logger = logger;
         }
+
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var items = await _service.ObtenerTodosAsync();
+            var items = await _service.GetAllAsync();
             return Ok(items);
         }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var item = await _service.ObtenerPorIdAsync(id);
+            var item = await _service.GetByIdAsync(id);
             if (item == null) return NotFound();
             return Ok(item);
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Producto dto)
+        public async Task<IActionResult> Add([FromBody] Alumno dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var newId = await _service.CrearAsync(dto);
+            var newId = await _service.AddAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = newId }, new { Id = newId });
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] Producto dto)
+        public async Task<IActionResult> Update([FromBody] Alumno dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             //if (id != dto.Id) return BadRequest("Id No Encontrado");
 
-            var rows = await _service.ActualizarAsync(dto);
+            var rows = await _service.UpdateAsync(dto);
             if (rows == 0) return NotFound();
             return NoContent();
         }
@@ -56,9 +58,10 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var rows = await _service.EliminarAsync(id);
+            var rows = await _service.DeleteAsync(id);
             if (rows == 0) return NotFound();
             return NoContent();
         }
     }
 }
+

@@ -22,6 +22,11 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 
+builder.Services.AddScoped<IAlumnoRepository, AlumnoRepository>();
+builder.Services.AddScoped<IAlumnoService, AlumnoService>();
+
+
+
 // Logging, CORS, etc.
 builder.Services.AddLogging();
 
