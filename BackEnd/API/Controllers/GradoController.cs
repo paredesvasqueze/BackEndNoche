@@ -1,15 +1,18 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class ProductoController : ControllerBase
+    [Route("[controller]")]
+    [ApiController]
+    public class GradoController : ControllerBase
     {
-        private readonly IProductoService _service;
-        private readonly ILogger<ProductoController> _logger;
+        private readonly IGradoService _service;
+        private readonly ILogger<GradoController> _logger;
 
-        public ProductoController(IProductoService service, ILogger<ProductoController> logger)
+        public GradoController(IGradoService service, ILogger<GradoController> logger)
         {
             _service = service;
             _logger = logger;
@@ -31,7 +34,7 @@ namespace API.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create([FromBody] Producto dto)
+        public async Task<IActionResult> Create([FromBody] Grado dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -40,7 +43,7 @@ namespace API.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] Producto dto)
+        public async Task<IActionResult> Update([FromBody] Grado dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             //if (id != dto.Id) return BadRequest("Id No Encontrado");
